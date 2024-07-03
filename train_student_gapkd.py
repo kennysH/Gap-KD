@@ -169,45 +169,31 @@ def load_checkpoint(model, checkpoint_path):
 	return model_t
 
 def gapkd_loss(logits_student, logits_teacher, logits_ta, target, alpha, beta, temperature):
-    # 获取目标类别的掩码
     gt_mask = _get_gt_mask(logits_student, target)
-    # 获取非目标类别的掩码
     other_mask = _get_other_mask(logits_student, target)
-    # 对学生模型的输出进行softmax操作并除以温度参数
     pred_student = F.softmax(logits_student / temperature, dim=1)
-    # 对教师模型的输出进行softmax操作并除以温度参数
     pred_teacher = F.softmax(logits_teacher / temperature, dim=1)
-    # 对助教模型的输出进行softmax操作并除以温度参数
     pred_ta = F.softmax(logits_ta / temperature, dim=1)
-    # 对学生模型的预测结果进行掩码操作
     pred_student = cat_mask(pred_student, gt_mask, other_mask)
-    # 对教师模型的预测结果进行掩码操作
     pred_teacher = cat_mask(pred_teacher, gt_mask, other_mask)
-    # 对助教模型的预测结果进行掩码操作
     pred_ta = cat_mask(pred_ta, gt_mask, other_mask)
-    # 对学生模型的预测结果取对数
     log_pred_student = torch.log(pred_student)
-    # 计算教师模型和学生模型在目标类别上的KL散度
     tckd_loss = (
         F.kl_div(log_pred_student, pred_teacher, size_average=False)
         * (temperature**2)
         / target.shape[0]
     )
-    # 对助教模型的输出进行softmax操作并减去一个大数（通过gt_mask实现）
     pred_ta_part2 = F.softmax(
         logits_ta / temperature - 1000.0 * gt_mask, dim=1
     )
-    # 对学生模型的输出进行log_softmax操作并减去一个大数（通过gt_mask实现）
     log_pred_student_part2 = F.log_softmax(
         logits_student / temperature - 1000.0 * gt_mask, dim=1
     )
-    # 计算助教模型和学生模型在非目标类别上的KL散度
     nckd_loss = (
         F.kl_div(log_pred_student_part2, pred_ta_part2, size_average=False)
         * (temperature**2)
         / target.shape[0]
     )
-    # 返回加权后的总损失
     return alpha * tckd_loss + beta * nckd_loss
 
 
@@ -335,7 +321,6 @@ def rate_decay(epoch, total_epochs, Tmax, Tmin):
 
 def main():
     opt = parse_option()
-    # 设置种子
 
     seed_value = opt.seed
     random.seed(seed_value)
