@@ -1,0 +1,2 @@
+Best Accuracy: 68.2300
+Epoch: 157
