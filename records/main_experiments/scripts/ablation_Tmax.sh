@@ -1,6 +1,0 @@
-python train_student_alpha.py --path_t ./save/models/resnet110_vanilla/ckpt_epoch_240.pth --distill kd --model_s resnet32 -r 0.1 -a 0.9 -b 0 --trial 4 --adjust rate_decay --Tmax 5
-python train_student_alpha.py --path_t ./save/models/resnet110_vanilla/ckpt_epoch_240.pth --distill kd --model_s resnet32 -r 0.1 -a 0.9 -b 0 --trial 4 --adjust rate_decay --Tmax 10
-python train_student_alpha.py --path_t ./save/models/resnet110_vanilla/ckpt_epoch_240.pth --distill kd --model_s resnet32 -r 0.1 -a 0.9 -b 0 --trial 4 --adjust rate_decay --Tmax 15
-python train_student_alpha.py --path_t ./save/models/resnet110_vanilla/ckpt_epoch_240.pth --distill kd --model_s resnet32 -r 0.1 -a 0.9 -b 0 --trial 4 --adjust rate_decay --Tmax 20
-python train_student_alpha.py --path_t ./save/models/resnet110_vanilla/ckpt_epoch_240.pth --distill kd --model_s resnet32 -r 0.1 -a 0.9 -b 0 --trial 4 --adjust rate_decay --Tmax 25
-python train_student_alpha.py --path_t ./save/models/resnet110_vanilla/ckpt_epoch_240.pth --distill kd --model_s resnet32 -r 0.1 -a 0.9 -b 0 --trial 4 --adjust rate_decay --Tmax 30
