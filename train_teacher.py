@@ -84,7 +84,7 @@ def parse_option():
 
 
 def main():
-    # 设置种子
+    # seed
     opt = parse_option()
     seed_value = opt.seed
     torch.manual_seed(seed_value)

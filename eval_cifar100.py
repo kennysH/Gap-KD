@@ -22,16 +22,16 @@ def evaluate(model, val_loader, device):
 
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model_path = "save/models/resnet110_vanilla/ckpt_epoch_240.pth"  # 更改为您的模型路径
-    model_name = "resnet110"  # 根据您的模型更改
+    model_path = "save/models/resnet110_vanilla/ckpt_epoch_240.pth"  
+    model_name = "resnet110"  
 
-    # 加载模型
+  
     model = load_model(model_path, model_name)
-    model = model.to(device)  # 移动模型到正确的设备
+    model = model.to(device)  
 
-    # 准备数据
+
     _, val_loader = get_cifar100_dataloaders(batch_size=64, num_workers=8)
-    # 评估模型
+
     acc = evaluate(model, val_loader, device)
     print(f"Model Accuracy on CIFAR100 Test Set: {acc:.2f}%")
 

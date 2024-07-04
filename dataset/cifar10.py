@@ -187,7 +187,7 @@ def get_cifar10_dataloaders_sample(batch_size=128, num_workers=8, k=4096, mode='
         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2470, 0.2435, 0.2616)),  # 更新为 CIFAR-10 的均值和标准差
     ])
 
-    train_set = CIFAR10InstanceSample(root=data_folder,  # 更新为 CIFAR-10 的类
+    train_set = CIFAR10InstanceSample(root=data_folder,  
                                       download=True,
                                       train=True,
                                       transform=train_transform,
@@ -201,7 +201,7 @@ def get_cifar10_dataloaders_sample(batch_size=128, num_workers=8, k=4096, mode='
                               shuffle=True,
                               num_workers=num_workers)
 
-    test_set = datasets.CIFAR10(root=data_folder,  # 更新为 CIFAR-10 的类
+    test_set = datasets.CIFAR10(root=data_folder,  
                                 download=True,
                                 train=False,
                                 transform=test_transform)
